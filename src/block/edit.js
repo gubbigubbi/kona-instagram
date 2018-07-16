@@ -11,6 +11,10 @@ export default class InstagramEdit extends Component {
 		super( ...arguments );
 		this.onChangeImages = this.onChangeImages.bind( this );
 		this.onChangeToken = this.onChangeToken.bind( this );
+
+		this.state = {
+			hasToken: false,
+		};
 	}
 
 	componentDidMount() {
@@ -57,6 +61,49 @@ export default class InstagramEdit extends Component {
 			setAttributes,
 		} = this.props;
 
+		let container;
+
+		if ( token ) {
+			container = (
+				<div
+					className="display-grid"
+					style={ {
+						gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
+						marginLeft: `-${ gridGap }px`,
+						marginRight: `-${ gridGap }px`,
+					} }
+				>
+					{ thumbs.map( photo => {
+						return (
+							<img
+								key={ photo.id }
+								src={ photo.images.standard_resolution.url }
+								alt={ photo.caption }
+								style={ {
+									padding: `${ gridGap }px`,
+								} }
+							/>
+						);
+					} ) }
+				</div>
+			);
+		} else {
+			container = (
+				<div>
+					To get started please add an Instagram Access Token.{ ' ' }
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						href="http://instagram.pixelunion.net/"
+					>
+						To do this login to instagram and click here.
+					</a>
+					Once you have a token, please paste it into the 'Instagram Access
+					Token' setting.
+				</div>
+			);
+		}
+
 		return (
 			<div className={ className }>
 				<InspectorControls>
@@ -97,28 +144,7 @@ export default class InstagramEdit extends Component {
 						/>
 					</PanelBody>
 				</InspectorControls>
-
-				<div
-					className="display-grid"
-					style={ {
-						gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
-						marginLeft: `-${ gridGap }px`,
-						marginRight: `-${ gridGap }px`,
-					} }
-				>
-					{ thumbs.map( photo => {
-						return (
-							<img
-								key={ photo.id }
-								src={ photo.images.standard_resolution.url }
-								alt={ photo.caption }
-								style={ {
-									padding: `${ gridGap }px`,
-								} }
-							/>
-						);
-					} ) }
-				</div>
+				{ container }
 			</div>
 		);
 	}

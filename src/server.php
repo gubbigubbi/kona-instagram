@@ -1,5 +1,4 @@
 <?php
-
 register_block_type('cgb/block-gutengram', array(
 	'render_callback' => 'gutengram_render_callback',
 		'attributes' => array(
@@ -21,19 +20,21 @@ register_block_type('cgb/block-gutengram', array(
 
 function gutengram_render_callback( $attributes ){
 	
-	$thumbs = $attributes[ 'thumbs' ];
+	$thumbs 		= $attributes[ 'thumbs' ];
 	$numberCols = $attributes[ 'numberCols' ];
-	$gridGap = $attributes['gridGap'];
+	$gridGap 		= $attributes['gridGap'];
 
 	$markup = '<div class="display-grid" 
-	style="grid-template-columns: repeat('.$numberCols.', 1fr); margin-left: -'.$gridGap.'px; margin-right: -'.$gridGap.'px";>';
+	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
+	margin-left: -'.esc_attr($gridGap).'px; 
+	margin-right: -'.esc_attr($gridGap).'px";>';
 
 	foreach( $thumbs as $thumb ) {
 		$markup .= '<img
-		key='.$thumb['id'].'
-		src='.$thumb['images']['standard_resolution']['url'].'
-		alt='.$thumb['caption'].'
-		style="padding: '.$gridGap.'px"
+		key='.esc_attr($thumb['id']).'
+		src='.esc_attr($thumb['images']['standard_resolution']['url']).'
+		alt='.esc_attr($thumb['caption']).'
+		style="padding: '.esc_attr($gridGap).'px"
 		/>';
 	}
 
