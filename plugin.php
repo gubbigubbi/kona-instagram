@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: gutengram — CGB Gutenberg Block Plugin
- * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: gutengram — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
- * Version: 1.0.0
+ * Plugin Name: Kona: Instagram Feed for Gutenberg
+ * Plugin URI: https://github.com/gubbigubbi/kona-instagram
+ * Description: Easily add and preview your instagram feed live within the new editor experience.
+ * Author: gubbigubbi
+ * Author URI: https://github.com/gubbigubbi/
+ * Version: 0.0.1
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
