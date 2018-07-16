@@ -13,3 +13,14 @@
 .display-grid {
 	display: grid;
 }
+
+/* flexbox fallback if the browser does not support display:grid */
+@supports not (display: grid) {
+	.display-grid {
+		display: flex;
+		flex-wrap: row wrap;
+		> * {
+			flex: 0 1 1;
+		}
+	}
+}

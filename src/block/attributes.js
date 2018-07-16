@@ -1,4 +1,8 @@
 export const attributes = {
+	token: {
+		type: 'string',
+		default: '',
+	},
 	numberCols: {
 		type: 'number',
 		default: 4,
@@ -10,5 +14,9 @@ export const attributes = {
 	thumbs: {
 		type: 'array',
 		default: [],
+	},
+	gridGap: {
+		type: 'number',
+		default: 0,
 	},
 };

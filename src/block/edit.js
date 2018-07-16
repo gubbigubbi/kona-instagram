@@ -1,28 +1,32 @@
 //import Inspector from './inspector';
-
 const { Component } = wp.element;
 
 const { InspectorControls } = wp.editor;
-const { PanelBody, RangeControl } = wp.components;
+const { PanelBody, RangeControl, TextControl } = wp.components;
 
 const { __ } = wp.i18n;
-
-const token = '4034731230.1677ed0.95135604716e4d749262b4eb14658a4d';
 
 export default class InstagramEdit extends Component {
 	constructor() {
 		super( ...arguments );
 		this.onChangeImages = this.onChangeImages.bind( this );
+		this.onChangeToken = this.onChangeToken.bind( this );
 	}
 
 	componentDidMount() {
 		this.fetchPhotos();
 	}
 
-	fetchPhotos( count ) {
+	fetchPhotos( count, token ) {
 		const _COUNT = count ? count : this.props.attributes.numberImages;
+		const _TOKEN = token ? token : this.props.attributes.token;
+
+		if ( ! _TOKEN ) {
+			return false;
+		}
+
 		return fetch(
-			`https://api.instagram.com/v1/users/self/media/recent/?access_token=${ token }&count=${ _COUNT }`
+			`https://api.instagram.com/v1/users/self/media/recent/?access_token=${ _TOKEN }&count=${ _COUNT }`
 		)
 			.then( res => res.json() )
 			.then( json => {
@@ -30,6 +34,13 @@ export default class InstagramEdit extends Component {
 					thumbs: json.data,
 				} );
 			} );
+	}
+
+	onChangeToken( token ) {
+		this.props.setAttributes( {
+			token,
+		} );
+		this.fetchPhotos( this.props.attributes.numberImages, token );
 	}
 
 	onChangeImages( numberImages ) {
@@ -41,7 +52,7 @@ export default class InstagramEdit extends Component {
 
 	render() {
 		const {
-			attributes: { numberCols, numberImages, thumbs },
+			attributes: { token, numberCols, numberImages, thumbs, gridGap },
 			className,
 			setAttributes,
 		} = this.props;
@@ -49,7 +60,14 @@ export default class InstagramEdit extends Component {
 		return (
 			<div className={ className }>
 				<InspectorControls>
-					<PanelBody title={ __( 'Layout Options' ) }>
+					<PanelBody title={ __( 'Step 1: Access Tokens' ) }>
+						<TextControl
+							label={ __( 'Instagram Access Token' ) }
+							value={ token }
+							onChange={ this.onChangeToken }
+						/>
+					</PanelBody>
+					<PanelBody title={ __( 'Step 2: Layout Options' ) }>
 						<RangeControl
 							value={ numberCols }
 							onChange={ numberCols => setAttributes( { numberCols } ) }
@@ -68,6 +86,15 @@ export default class InstagramEdit extends Component {
 							allowReset="true"
 							label={ __( 'Images' ) }
 						/>
+
+						<RangeControl
+							value={ gridGap }
+							onChange={ gridGap => setAttributes( { gridGap } ) }
+							min={ 0 }
+							max={ 20 }
+							step={ 1 }
+							label={ __( 'Image spacing (px)' ) }
+						/>
 					</PanelBody>
 				</InspectorControls>
 
@@ -75,6 +102,8 @@ export default class InstagramEdit extends Component {
 					className="display-grid"
 					style={ {
 						gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
+						marginLeft: `-${ gridGap }px`,
+						marginRight: `-${ gridGap }px`,
 					} }
 				>
 					{ thumbs.map( photo => {
@@ -83,6 +112,9 @@ export default class InstagramEdit extends Component {
 								key={ photo.id }
 								src={ photo.images.standard_resolution.url }
 								alt={ photo.caption }
+								style={ {
+									padding: `${ gridGap }px`,
+								} }
 							/>
 						);
 					} ) }
