@@ -4,10 +4,18 @@
  * CSS for both Frontend+Backend.
  */
 
-.wp-block-cgb-block-gutengram {
-	color: $black;
+.wp-block-cgb-kona-instagram-for-gutenberg {
 	margin: 0 auto;
-	max-width: 740px;
+	@media all and (max-width: $sm) {
+		.display-grid {
+			grid-template-columns: repeat(2, 1fr) !important;
+		}
+	}
+	@media all and (min-width: $sm) and (max-width: $lg) {
+		.display-grid {
+			grid-template-columns: repeat(4, 1fr) !important;
+		}
+	}
 }
 
 .display-grid {

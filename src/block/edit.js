@@ -89,7 +89,7 @@ export default class InstagramEdit extends Component {
 			);
 		} else {
 			container = (
-				<div>
+				<div className={ className }>
 					To get started please add an Instagram Access Token.{ ' ' }
 					<a
 						target="_blank"

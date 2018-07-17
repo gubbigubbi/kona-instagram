@@ -18,7 +18,6 @@ Easily and instantly preview your instagram feed live within the new editor (Gut
 ###Wan't to see a feature?
 ###### Feel free to tweet and say 👋 at me [@RhysClay](https://twitter.com/rhysclay/)
 
-
 == Installation ==
 
 Firstly make sure that you have the Gutenberg plugin installed.
@@ -33,7 +32,7 @@ Firstly make sure that you have the Gutenberg plugin installed.
 
 = My feed isn't showing? =
 
-Please make sure to add your Instagram access token the block settings. Once added you'r feed should show instantly (well pretty fast at least).
+Please make sure to add your Instagram access token the block settings. Once added you're feed should show instantly (well pretty fast at least).
 
 == Screenshots ==
 
@@ -44,3 +43,6 @@ Please make sure to add your Instagram access token the block settings. Once add
 
 = 0.1 =
 * First release.
+
+== Coming Soon ==
+* Caching for the Instagram request
