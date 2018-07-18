@@ -2,6 +2,8 @@
 
 Brings Instagram to your editor live, so fresh so clean.
 
+![alt text](https://github.com/gubbigubbi/kona-instagram/blob/master/screenshot-3.jpg 'Kona in action baby!')
+
 ## 👉 `npm start`
 
 - Use to compile and run the block in development mode.
