@@ -4,7 +4,7 @@ Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 4.9.7
 Stable tag: 4.9.6
-Requires PHP: 5.6
+Requires PHP: 5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,9 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 0.2 =
+* Added a caching system to reduce the number of requests the Insta API.
 
 = 0.1 =
 * First release.

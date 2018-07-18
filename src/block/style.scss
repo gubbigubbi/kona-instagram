@@ -7,12 +7,12 @@
 .wp-block-cgb-kona-instagram-for-gutenberg {
 	margin: 0 auto;
 	@media all and (max-width: $sm) {
-		.display-grid {
+		.kona-grid {
 			grid-template-columns: repeat(2, 1fr) !important;
 		}
 	}
 	@media all and (min-width: $sm) and (max-width: $lg) {
-		.display-grid {
+		.kona-grid {
 			grid-template-columns: repeat(4, 1fr) !important;
 		}
 	}
@@ -30,5 +30,16 @@
 		> * {
 			flex: 0 1 1;
 		}
+	}
+}
+
+/**
+Image Styling
+**/
+.kona-image {
+	opacity: 1;
+	transition: opacity 0.5s ease-in-out;
+	&:hover {
+		opacity: 0.8;
 	}
 }

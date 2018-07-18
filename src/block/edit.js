@@ -66,7 +66,7 @@ export default class InstagramEdit extends Component {
 		if ( token ) {
 			container = (
 				<div
-					className="display-grid"
+					className="display-grid kona-grid"
 					style={ {
 						gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
 						marginLeft: `-${ gridGap }px`,
@@ -75,14 +75,21 @@ export default class InstagramEdit extends Component {
 				>
 					{ thumbs.map( photo => {
 						return (
-							<img
+							<a
+								href={ photo.link }
 								key={ photo.id }
-								src={ photo.images.standard_resolution.url }
-								alt={ photo.caption }
-								style={ {
-									padding: `${ gridGap }px`,
-								} }
-							/>
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<img
+									className="kona-image"
+									src={ photo.images.standard_resolution.url }
+									alt={ photo.caption.text }
+									style={ {
+										padding: `${ gridGap }px`,
+									} }
+								/>
+							</a>
 						);
 					} ) }
 				</div>
