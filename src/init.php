@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Contants
-define( 'PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'KONA_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
 /**
  * Enqueue Gutenberg block assets for both frontend + backend.
@@ -70,5 +70,5 @@ add_action( 'enqueue_block_editor_assets', 'kona_editor_assets' );
 /**
  * Server Side Rendering
  */
-require_once(PLUGIN_PATH . './server.php');
+require_once( KONA_PLUGIN_PATH . './server.php' );
 

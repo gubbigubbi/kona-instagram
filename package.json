@@ -10,5 +10,9 @@
 	"dependencies": {
 		"cgb-scripts": "1.9.8",
 		"hoek": "^5.0.3"
+	},
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-zip": "^4.1.0"
 	}
 }
