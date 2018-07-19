@@ -1,6 +1,6 @@
 {
-	"name": "gutengram-cgb-guten-block",
-	"version": "1.0.0",
+	"name": "kona-instagram-for-gutenberg",
+	"version": "0.0.1",
 	"private": true,
 	"scripts": {
 		"start": "cgb-scripts start",

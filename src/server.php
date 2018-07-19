@@ -24,14 +24,10 @@ register_block_type('cgb/kona-instagram-for-gutenberg', array(
 
 /**
  * Generic data fetching wrapper
+ * Uses the WP-API for fetching
  */
 function fetchData($url) {
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-	$result = curl_exec($ch);
-	curl_close($ch); 
+	$result = wp_remote_get( $url ); 
 	return $result;
 }
 
