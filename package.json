@@ -1,6 +1,6 @@
 {
 	"name": "kona-instagram-for-gutenberg",
-	"version": "0.0.1",
+	"version": "0.3.0",
 	"private": true,
 	"scripts": {
 		"start": "cgb-scripts start",

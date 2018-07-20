@@ -42,7 +42,7 @@ function kona_fetchData($url) {
  * adds/removes images and expects a refreshed feed.
  */
 function kona_add_to_cache( $result, $suffix = '' ) {
-	$expire = 24 * 60 * 60; // 24 hours in seconds
+	$expire = 6 * 60 * 60; // 6 hours in seconds
 	set_transient( 'kona-api_'.$suffix, $result, '', $expire );
 }
 
@@ -60,13 +60,19 @@ function kona_render_callback( array $attributes ){
 	$numberCols 	= $attributes[ 'numberCols' ];
 	$gridGap 			= $attributes[ 'gridGap' ];
 
+	// get the user ID from the token
+	$user 				= substr($token, 0, stripos($token, '.'));
+
+	// create a unique id so there is no double ups
+	$suffix 			= $user.'_'.$numberImages;
+
 	if ( !kona_get_from_cache() ) {
 		// no valid cache found
 		// hit the network
 		$result = json_decode(kona_fetchData("https://api.instagram.com/v1/users/self/media/recent/?access_token={$token}&count={$numberImages}"));
-		kona_add_to_cache( $result, $numberImages ); // add the result to the cache
+		kona_add_to_cache( $result, $suffix ); // add the result to the cache
 	} else {
-		$result = kona_get_from_cache( $numberImages ); // hit the cache
+		$result = kona_get_from_cache( $suffix ); // hit the cache
 	}
 	$thumbs = $result->data;
 

@@ -13,7 +13,8 @@ export default class InstagramEdit extends Component {
 		this.onChangeToken = this.onChangeToken.bind( this );
 
 		this.state = {
-			hasToken: false,
+			apiResponseCode: 200,
+			apiErrorMessage: '',
 		};
 	}
 
@@ -34,9 +35,23 @@ export default class InstagramEdit extends Component {
 		)
 			.then( res => res.json() )
 			.then( json => {
-				this.props.setAttributes( {
-					thumbs: json.data,
+				this.setState( {
+					apiResponseCode: json.meta.code,
 				} );
+
+				if ( json.meta.code === 200 ) {
+					this.props.setAttributes( {
+						thumbs: json.data,
+					} );
+				} else {
+					this.props.setAttributes( {
+						thumbs: [],
+					} );
+
+					this.setState( {
+						apiErrorMessage: json.meta.error_message,
+					} );
+				}
 			} );
 	}
 
@@ -61,9 +76,11 @@ export default class InstagramEdit extends Component {
 			setAttributes,
 		} = this.props;
 
+		const { apiResponseCode, apiErrorMessage } = this.state;
+
 		let container;
 
-		if ( token ) {
+		if ( token && apiResponseCode === 200 ) {
 			container = (
 				<div
 					className="display-grid kona-grid"
@@ -73,27 +90,28 @@ export default class InstagramEdit extends Component {
 						marginRight: `-${ gridGap }px`,
 					} }
 				>
-					{ thumbs.map( photo => {
-						return (
-							<a
-								href={ photo.link }
-								key={ photo.id }
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<img
-									className="kona-image"
-									src={ photo.images.standard_resolution.url }
-									alt={ photo.caption.text }
-									style={ {
-										padding: `${ gridGap }px`,
-									} }
-								/>
-							</a>
-						);
-					} ) }
+					{ thumbs &&
+						thumbs.map( photo => {
+							return (
+								<span
+									//href={ photo.link } - removed
+									key={ photo.id }
+								>
+									<img
+										className="kona-image"
+										src={ photo.images.standard_resolution.url }
+										alt={ photo.caption.text }
+										style={ {
+											padding: `${ gridGap }px`,
+										} }
+									/>
+								</span>
+							);
+						} ) }
 				</div>
 			);
+		} else if ( apiResponseCode !== 200 ) {
+			container = <div>Ooops something went wrong: { apiErrorMessage }</div>;
 		} else {
 			container = (
 				<div className={ className }>

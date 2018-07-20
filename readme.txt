@@ -51,6 +51,11 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 
 == Changelog ==
 
+= 0.3 =
+* Updated caching system to include user ID so multiple feeds would work.
+* Updated editor to notify user if the Insta API returns an error
+* Removed links from editor images as these could be accidentaly clicked
+
 = 0.2 =
 * Added a caching system to reduce the number of requests the Insta API.
 
@@ -58,6 +63,5 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 * First release.
 
 == Coming Soon ==
-* Caching for the Instagram request
 * Profile details
 * Image links & captions
