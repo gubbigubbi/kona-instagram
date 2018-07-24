@@ -1,8 +1,8 @@
 //import Inspector from './inspector';
-const { Component } = wp.element;
+const { Component, Fragment } = wp.element;
 
 const { InspectorControls } = wp.editor;
-const { PanelBody, RangeControl, TextControl } = wp.components;
+const { PanelBody, RangeControl, TextControl, ToggleControl } = wp.components;
 
 const { __ } = wp.i18n;
 
@@ -11,6 +11,7 @@ export default class InstagramEdit extends Component {
 		super( ...arguments );
 		this.onChangeImages = this.onChangeImages.bind( this );
 		this.onChangeToken = this.onChangeToken.bind( this );
+		this.onChangeShowProfile = this.onChangeShowProfile.bind( this );
 
 		this.state = {
 			apiResponseCode: 200,
@@ -18,8 +19,10 @@ export default class InstagramEdit extends Component {
 		};
 	}
 
+	// On load get the thumbs and bio
 	componentDidMount() {
 		this.fetchPhotos();
+		this.fetchBio();
 	}
 
 	fetchPhotos( count, token ) {
@@ -55,6 +58,30 @@ export default class InstagramEdit extends Component {
 			} );
 	}
 
+	fetchBio() {
+		const _TOKEN = this.props.attributes.token;
+
+		if ( ! _TOKEN ) {
+			return false;
+		}
+
+		return fetch(
+			`https://api.instagram.com/v1/users/self/?access_token=${ _TOKEN }`
+		)
+			.then( res => res.json() )
+			.then( json => {
+				if ( json.meta.code === 200 ) {
+					this.props.setAttributes( {
+						profile: json.data,
+					} );
+				} else {
+					this.props.setAttributes( {
+						profile: [],
+					} );
+				}
+			} );
+	}
+
 	onChangeToken( token ) {
 		this.props.setAttributes( {
 			token,
@@ -69,9 +96,24 @@ export default class InstagramEdit extends Component {
 		this.fetchPhotos( numberImages );
 	}
 
+	onChangeShowProfile( showProfile ) {
+		this.props.setAttributes( {
+			showProfile,
+		} );
+		this.fetchBio();
+	}
+
 	render() {
 		const {
-			attributes: { token, numberCols, numberImages, thumbs, gridGap },
+			attributes: {
+				token,
+				numberCols,
+				numberImages,
+				thumbs,
+				gridGap,
+				showProfile,
+				profile,
+			},
 			className,
 			setAttributes,
 		} = this.props;
@@ -129,6 +171,28 @@ export default class InstagramEdit extends Component {
 			);
 		}
 
+		let profileContainer;
+
+		if ( showProfile ) {
+			profileContainer = (
+				<div className="display-grid kona-profile-container">
+					<div className="kona-profile-picture-container">
+						<img
+							className="kona-profile-picture"
+							src={ profile.profile_picture }
+							alt={ profile.full_name }
+						/>
+					</div>
+					<div className="kona-bio-container">
+						<h3>{ profile.username }</h3>
+						<p>{ profile.bio }</p>
+					</div>
+				</div>
+			);
+		} else {
+			profileContainer = <Fragment />;
+		}
+
 		return (
 			<div className={ className }>
 				<InspectorControls>
@@ -167,8 +231,18 @@ export default class InstagramEdit extends Component {
 							step={ 1 }
 							label={ __( 'Image spacing (px)' ) }
 						/>
+
+						<ToggleControl
+							label={ __( 'Show profile?' ) }
+							checked={ showProfile }
+							help={ __(
+								'Show your profile details such as your biography and profile photo.'
+							) }
+							onChange={ this.onChangeShowProfile }
+						/>
 					</PanelBody>
 				</InspectorControls>
+				{ profileContainer }
 				{ container }
 			</div>
 		);

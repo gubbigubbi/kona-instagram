@@ -19,4 +19,12 @@ export const attributes = {
 		type: 'number',
 		default: 0,
 	},
+	showProfile: {
+		type: 'boolean',
+		default: false,
+	},
+	profile: {
+		type: 'array',
+		default: [],
+	},
 };

@@ -44,3 +44,22 @@ Image Styling
 		opacity: 0.8;
 	}
 }
+
+/**
+Profile pictures
+**/
+.kona-profile-container {
+	grid-template-columns: 60px auto;
+	grid-column-gap: 1rem;
+	margin-bottom: 1rem;
+}
+.kona-profile-picture {
+	border-radius: 100%;
+}
+.kona-bio-container {
+	h3,
+	p {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}

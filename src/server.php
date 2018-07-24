@@ -18,6 +18,10 @@ register_block_type('cgb/kona-instagram-for-gutenberg', array(
 					'type' 		=> 'number',
 					'default'	=> 0
 				),
+				'showProfile'	=> array(
+					'type'		=> 'boolean',
+					'default'	=> false
+				),
 		)
 	)
 );
@@ -59,6 +63,7 @@ function kona_render_callback( array $attributes ){
 	$numberImages	= $attributes[ 'numberImages' ];
 	$numberCols 	= $attributes[ 'numberCols' ];
 	$gridGap 			= $attributes[ 'gridGap' ];
+	$showProfile	= $attributes[ 'showProfile' ];
 
 	// get the user ID from the token
 	$user 				= substr($token, 0, stripos($token, '.'));
@@ -70,20 +75,42 @@ function kona_render_callback( array $attributes ){
 		// no valid cache found
 		// hit the network
 		$result = json_decode(kona_fetchData("https://api.instagram.com/v1/users/self/media/recent/?access_token={$token}&count={$numberImages}"));
+		if($showProfile) {
+			$result->profile = json_decode(kona_fetchData("https://api.instagram.com/v1/users/self?access_token={$token}"));
+		}
 		kona_add_to_cache( $result, $suffix ); // add the result to the cache
 	} else {
 		$result = kona_get_from_cache( $suffix ); // hit the cache
 	}
-	$thumbs = $result->data;
+	$thumbs 	= $result->data;
+	$profile 	= ''; // our empty profile container
 
-	$markup = '<div class="wp-block-cgb-kona-instagram-for-gutenberg">
+	if($showProfile) {
+		$profile 	= $result->profile->data;
+
+		$profileContainer = '<a href="https://instagram.com/'.$profile->username.'" target="_blank" class="display-grid kona-profile-container">
+			<div class="kona-profile-picture-container">
+				<img
+					class="kona-profile-picture"
+					src="'.esc_attr($profile->profile_picture).'"
+					alt="'.esc_attr($profile->full_name).'"
+				/>
+			</div>
+			<div class="kona-bio-container">
+				<h3>'.$profile->username.'</h3>
+				<p>'.$profile->bio.'</p>
+			</div>
+		</a>';
+	}
+
+	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg">
 	<div class="display-grid kona-grid" 
 	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
 	margin-left: -'.esc_attr($gridGap).'px; 
 	margin-right: -'.esc_attr($gridGap).'px";>';
 
 	foreach( $thumbs as $thumb ) {
-		$markup .= '
+		$imageContainer .= '
 		<a href="'.esc_attr($thumb->link).'" target="_blank" rel="noopener noreferrer">
 			<img
 			class="kona-image"
@@ -95,5 +122,5 @@ function kona_render_callback( array $attributes ){
 		</a>';
 	}
 
-	return "{$markup}</div></div>";
+	return "{$profileContainer}{$imageContainer}</div></div>";
 }

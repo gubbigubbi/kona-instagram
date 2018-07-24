@@ -5,7 +5,7 @@
  * Description: Easily add and preview your instagram feed live within the new editor experience.
  * Author: gubbigubbi
  * Author URI: https://github.com/gubbigubbi/
- * Version: 0.3
+ * Version: 0.4
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
