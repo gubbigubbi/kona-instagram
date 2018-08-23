@@ -1,23 +1,22 @@
-//import Inspector from './inspector';
 const { Component, Fragment } = wp.element;
 
 const { InspectorControls } = wp.editor;
-const { PanelBody, RangeControl, TextControl, ToggleControl } = wp.components;
+const {
+	PanelBody,
+	RangeControl,
+	TextControl,
+	ToggleControl,
+	Spinner,
+} = wp.components;
 
 const { __ } = wp.i18n;
 
 export default class InstagramEdit extends Component {
-	constructor() {
-		super( ...arguments );
-		this.onChangeImages = this.onChangeImages.bind( this );
-		this.onChangeToken = this.onChangeToken.bind( this );
-		this.onChangeShowProfile = this.onChangeShowProfile.bind( this );
-
-		this.state = {
-			apiResponseCode: 200,
-			apiErrorMessage: '',
-		};
-	}
+	state = {
+		loading: true,
+		apiResponseCode: 200,
+		apiErrorMessage: '',
+	};
 
 	// On load get the thumbs and bio
 	componentDidMount() {
@@ -40,6 +39,7 @@ export default class InstagramEdit extends Component {
 			.then( json => {
 				this.setState( {
 					apiResponseCode: json.meta.code,
+					loading: false,
 				} );
 
 				if ( json.meta.code === 200 ) {
@@ -118,7 +118,7 @@ export default class InstagramEdit extends Component {
 			setAttributes,
 		} = this.props;
 
-		const { apiResponseCode, apiErrorMessage } = this.state;
+		const { apiResponseCode, apiErrorMessage, loading } = this.state;
 
 		let container;
 
@@ -142,7 +142,7 @@ export default class InstagramEdit extends Component {
 									<img
 										className="kona-image"
 										src={ photo.images.standard_resolution.url }
-										alt={ photo.caption.text }
+										alt={ photo.caption ? photo.caption.text : '' }
 										style={ {
 											padding: `${ gridGap }px`,
 										} }
@@ -191,6 +191,15 @@ export default class InstagramEdit extends Component {
 			);
 		} else {
 			profileContainer = <Fragment />;
+		}
+
+		if ( loading ) {
+			return (
+				<p className={ className }>
+					<Spinner />
+					{ __( 'Loading feed' ) }
+				</p>
+			);
 		}
 
 		return (

@@ -107,18 +107,20 @@ function kona_render_callback( array $attributes ){
 	<div class="display-grid kona-grid" 
 	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
 	margin-left: -'.esc_attr($gridGap).'px; 
-	margin-right: -'.esc_attr($gridGap).'px";>';
+	margin-right: -'.esc_attr($gridGap).'px;
+	grid-gap: '.esc_attr( $gridGap ).'px";
+	>';
 
 	foreach( $thumbs as $thumb ) {
 		$imageContainer .= '
-		<a href="'.esc_attr($thumb->link).'" target="_blank" rel="noopener noreferrer">
+		<a class="kona-image-wrapper" href="'.esc_attr($thumb->link).'" target="_blank" rel="noopener noreferrer">
 			<img
 			class="kona-image"
 			key="'.esc_attr($thumb->id).'"
 			src="'.esc_attr($thumb->images->standard_resolution->url).'"
 			alt="'.esc_attr($thumb->caption->text).'"
-			style="padding: '.esc_attr($gridGap).'px"
 			/>
+			<div class="kona-image-overlay"></div>
 		</a>';
 	}
 
