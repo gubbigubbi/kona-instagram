@@ -3,7 +3,7 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 4.9.8
-Stable tag: 0.6
+Stable tag: 0.7
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,12 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 
 == Changelog ==
 
+= 0.7 =
+* Added background color option
+
+= 0.6.1 =
+* Fixed bug where new feed would be stuck in loading mode.
+
 = 0.6 =
 * Added checks for caption before rendering caption. Added loading spinner. Added icon.
 
@@ -72,6 +78,4 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 * First release.
 
 == Coming Soon ==
-* ~~Image links~~ & captions
-* ~~API Caching~~
-* ~~Profile details~~
+* Ability to make all images the same size

@@ -27,4 +27,8 @@ export const attributes = {
 		type: 'array',
 		default: [],
 	},
+	backgroundColor: {
+		type: 'string',
+		default: 'transparent',
+	},
 };

@@ -22,6 +22,10 @@ register_block_type('cgb/kona-instagram-for-gutenberg', array(
 					'type'		=> 'boolean',
 					'default'	=> false
 				),
+				'backgroundColor'	=> array(
+					'type'		=> 'string',
+					'default'	=> 'transparent',
+				),
 		)
 	)
 );
@@ -113,7 +117,9 @@ function kona_render_callback( array $attributes ){
 
 	foreach( $thumbs as $thumb ) {
 		$imageContainer .= '
-		<a class="kona-image-wrapper" href="'.esc_attr($thumb->link).'" target="_blank" rel="noopener noreferrer">
+		<a class="kona-image-wrapper" href="'.esc_attr($thumb->link).'" 
+		target="_blank" rel="noopener noreferrer"
+		style="background-color: '.esc_attr($attributes['backgroundColor']).'">
 			<img
 			class="kona-image"
 			key="'.esc_attr($thumb->id).'"

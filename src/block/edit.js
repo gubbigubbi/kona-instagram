@@ -1,8 +1,9 @@
 const { Component, Fragment } = wp.element;
 
-const { InspectorControls } = wp.editor;
+const { InspectorControls, ColorPalette } = wp.editor;
 const {
 	PanelBody,
+	PanelColor,
 	RangeControl,
 	TextControl,
 	ToggleControl,
@@ -82,26 +83,26 @@ export default class InstagramEdit extends Component {
 			} );
 	}
 
-	onChangeToken( token ) {
+	onChangeToken = token => {
 		this.props.setAttributes( {
 			token,
 		} );
 		this.fetchPhotos( this.props.attributes.numberImages, token );
-	}
+	};
 
-	onChangeImages( numberImages ) {
+	onChangeImages = numberImages => {
 		this.props.setAttributes( {
 			numberImages,
 		} );
 		this.fetchPhotos( numberImages );
-	}
+	};
 
-	onChangeShowProfile( showProfile ) {
+	onChangeShowProfile = showProfile => {
 		this.props.setAttributes( {
 			showProfile,
 		} );
 		this.fetchBio();
-	}
+	};
 
 	render() {
 		const {
@@ -113,6 +114,7 @@ export default class InstagramEdit extends Component {
 				gridGap,
 				showProfile,
 				profile,
+				backgroundColor,
 			},
 			className,
 			setAttributes,
@@ -123,35 +125,47 @@ export default class InstagramEdit extends Component {
 		let container;
 
 		if ( token && apiResponseCode === 200 ) {
-			container = (
-				<div
-					className="display-grid kona-grid"
-					style={ {
-						gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
-						marginLeft: `-${ gridGap }px`,
-						marginRight: `-${ gridGap }px`,
-					} }
-				>
-					{ thumbs &&
-						thumbs.map( photo => {
-							return (
-								<span
-									//href={ photo.link } - removed
-									key={ photo.id }
-								>
-									<img
-										className="kona-image"
-										src={ photo.images.standard_resolution.url }
-										alt={ photo.caption ? photo.caption.text : '' }
-										style={ {
-											padding: `${ gridGap }px`,
-										} }
-									/>
-								</span>
-							);
-						} ) }
-				</div>
-			);
+			if ( loading ) {
+				container = (
+					<p className={ className }>
+						<Spinner />
+						{ __( 'Loading feed' ) }
+					</p>
+				);
+			} else {
+				container = (
+					<div
+						className="display-grid kona-grid"
+						style={ {
+							gridTemplateColumns: `repeat(${ numberCols }, 1fr)`,
+							marginLeft: `-${ gridGap }px`,
+							marginRight: `-${ gridGap }px`,
+						} }
+					>
+						{ thumbs &&
+							thumbs.map( photo => {
+								return (
+									<div
+										className="kona-image-wrapper"
+										style={ { backgroundColor } }
+										//href={ photo.link } - removed
+										key={ photo.id }
+									>
+										<img
+											className="kona-image"
+											src={ photo.images.standard_resolution.url }
+											alt={ photo.caption ? photo.caption.text : '' }
+											style={ {
+												padding: `${ gridGap }px`,
+											} }
+										/>
+										<div className="kona-image-overlay" />
+									</div>
+								);
+							} ) }
+					</div>
+				);
+			}
 		} else if ( apiResponseCode !== 200 ) {
 			container = <div>Ooops something went wrong: { apiErrorMessage }</div>;
 		} else {
@@ -191,15 +205,6 @@ export default class InstagramEdit extends Component {
 			);
 		} else {
 			profileContainer = <Fragment />;
-		}
-
-		if ( loading ) {
-			return (
-				<p className={ className }>
-					<Spinner />
-					{ __( 'Loading feed' ) }
-				</p>
-			);
 		}
 
 		return (
@@ -249,6 +254,16 @@ export default class InstagramEdit extends Component {
 							) }
 							onChange={ this.onChangeShowProfile }
 						/>
+
+						<PanelColor
+							title={ __( 'Image Background' ) }
+							colorValue={ backgroundColor }
+						>
+							<ColorPalette
+								value={ backgroundColor }
+								onChange={ backgroundColor => setAttributes( { backgroundColor } ) }
+							/>
+						</PanelColor>
 					</PanelBody>
 				</InspectorControls>
 				{ profileContainer }
