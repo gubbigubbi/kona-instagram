@@ -8,12 +8,12 @@ Requires PHP: 5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Easily and instantly preview your instagram feed live within the new editor experience. Adjust settings as neededm such as the number of columns and the spacing. More features to come!
+Easily and instantly preview your instagram feed live within the new editor experience. Adjust settings as needed such as the number of columns and the spacing. More features to come!
 
 == Description ==
 
 ## Kona: Instagram Feed for Gutenberg
-Easily and instantly preview your Instagram feed live within the new editor (Gutenberg) experience. Adjust settings as neededm such as the number of columns and the spacing. More features to come. 
+Easily and instantly preview your Instagram feed live within the new editor (Gutenberg) experience. Adjust settings as needed such as the number of columns and the spacing. More features to come. 
 
 ###Wan't to see a feature?
 ###### Feel free to tweet and say 👋 at me [@RhysClay](https://twitter.com/rhysclay/)
@@ -32,7 +32,7 @@ Firstly make sure that you have the Gutenberg plugin installed.
 
 = My feed isn't showing? =
 
-Please make sure to add your Instagram access token the block settings. Once added you're feed should show instantly (well pretty fast at least).
+Please make sure to add your Instagram access token the block settings. Once added your feed should show instantly (well pretty fast at least).
 
 = How about X feature? =
 
