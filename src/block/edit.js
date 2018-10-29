@@ -43,6 +43,8 @@ export default class InstagramEdit extends Component {
 					loading: false,
 				} );
 
+				console.log( json );
+
 				if ( json.meta.code === 200 ) {
 					this.props.setAttributes( {
 						thumbs: json.data,
@@ -108,6 +110,7 @@ export default class InstagramEdit extends Component {
 		const {
 			attributes: {
 				token,
+				useThumbnail,
 				numberCols,
 				numberImages,
 				thumbs,
@@ -148,12 +151,15 @@ export default class InstagramEdit extends Component {
 									<div
 										className="kona-image-wrapper"
 										style={ { backgroundColor } }
-										//href={ photo.link } - removed
 										key={ photo.id }
 									>
 										<img
 											className="kona-image"
-											src={ photo.images.standard_resolution.url }
+											src={
+												useThumbnail ?
+													photo.images.thumbnail.url :
+													photo.images.standard_resolution.url
+											}
 											alt={ photo.caption ? photo.caption.text : '' }
 											style={ {
 												padding: `${ gridGap }px`,
@@ -253,6 +259,13 @@ export default class InstagramEdit extends Component {
 								'Show your profile details such as your biography and profile photo.'
 							) }
 							onChange={ this.onChangeShowProfile }
+						/>
+
+						<ToggleControl
+							label={ __( 'Use Thumbnails?' ) }
+							checked={ useThumbnail }
+							help={ __( 'Use square thumbnails for each image?' ) }
+							onChange={ useThumbnail => setAttributes( { useThumbnail } ) }
 						/>
 
 						<PanelColor

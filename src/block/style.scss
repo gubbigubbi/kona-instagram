@@ -6,7 +6,12 @@
 
 .wp-block-cgb-kona-instagram-for-gutenberg {
 	margin: 0 auto;
-	@media all and (max-width: $sm) {
+	@media all and (max-width: $xs) {
+		.kona-grid {
+			grid-template-columns: repeat(1, 1fr) !important;
+		}
+	}
+	@media all and (min-width: $xs) and (max-width: $sm) {
 		.kona-grid {
 			grid-template-columns: repeat(2, 1fr) !important;
 		}
@@ -15,6 +20,9 @@
 		.kona-grid {
 			grid-template-columns: repeat(4, 1fr) !important;
 		}
+	}
+	.kona-grid.use-thumbnail {
+		grid-auto-rows: min-content;
 	}
 }
 
@@ -50,6 +58,7 @@ Image Styling
 }
 .kona-image {
 	display: block;
+	margin: 0 auto; // center the image in the container
 }
 
 .kona-image-overlay {
@@ -79,9 +88,13 @@ Image Styling
 Profile pictures
 **/
 .kona-profile-container {
-	grid-template-columns: 60px auto;
-	grid-column-gap: 1rem;
+	display: block;
 	margin-bottom: 1rem;
+	@media all and (min-width: 541px) {
+		display: grid;
+		grid-template-columns: 60px auto;
+		grid-column-gap: 1rem;
+	}
 }
 .kona-profile-picture {
 	border-radius: 100%;

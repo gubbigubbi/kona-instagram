@@ -3,6 +3,14 @@ export const attributes = {
 		type: 'string',
 		default: '',
 	},
+	displayType: {
+		type: 'string',
+		default: 'grid',
+	},
+	useThumbnail: {
+		type: 'boolean',
+		default: false,
+	},
 	numberCols: {
 		type: 'number',
 		default: 4,

@@ -6,9 +6,13 @@ register_block_type('cgb/kona-instagram-for-gutenberg', array(
 					'type' 		=> 'number',
 					'default'	=> '4' // nb: a default is needed!
 				),
-				'token'=> array(
+				'token' => array(
 						'type' 		=> 'string',
 						'default' => ''
+				),
+				'useThumbnail' => array(
+					'type' 		=> 'boolean',
+					'default' => false
 				),
 				'numberImages' => array(
 					'type' 		=> 'number',
@@ -64,6 +68,7 @@ function kona_get_from_cache( $suffix = '' ) {
 function kona_render_callback( array $attributes ){
 	
 	$token				= $attributes[ 'token' ];
+	$useThumbnail = $attributes[ 'useThumbnail' ] ? 'use-thumbnail' : '';
 	$numberImages	= $attributes[ 'numberImages' ];
 	$numberCols 	= $attributes[ 'numberCols' ];
 	$gridGap 			= $attributes[ 'gridGap' ];
@@ -92,7 +97,7 @@ function kona_render_callback( array $attributes ){
 	if($showProfile) {
 		$profile 	= $result->profile->data;
 
-		$profileContainer = '<a href="https://instagram.com/'.$profile->username.'" target="_blank" class="display-grid kona-profile-container">
+		$profileContainer = '<a href="https://instagram.com/'.$profile->username.'" target="_blank" class="kona-profile-container display-grid">
 			<div class="kona-profile-picture-container">
 				<img
 					class="kona-profile-picture"
@@ -108,7 +113,7 @@ function kona_render_callback( array $attributes ){
 	}
 
 	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg">
-	<div class="display-grid kona-grid" 
+	<div class="display-grid kona-grid '.$useThumbnail.'" 
 	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
 	margin-left: -'.esc_attr($gridGap).'px; 
 	margin-right: -'.esc_attr($gridGap).'px;
@@ -116,6 +121,9 @@ function kona_render_callback( array $attributes ){
 	>';
 
 	foreach( $thumbs as $thumb ) {
+
+		$image = esc_attr($thumb->images->standard_resolution->url);
+
 		$imageContainer .= '
 		<a class="kona-image-wrapper" href="'.esc_attr($thumb->link).'" 
 		target="_blank" rel="noopener noreferrer"
@@ -123,7 +131,7 @@ function kona_render_callback( array $attributes ){
 			<img
 			class="kona-image"
 			key="'.esc_attr($thumb->id).'"
-			src="'.esc_attr($thumb->images->standard_resolution->url).'"
+			src="'.$image.'"
 			alt="'.esc_attr($thumb->caption->text).'"
 			/>
 			<div class="kona-image-overlay"></div>

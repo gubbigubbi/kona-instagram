@@ -2,7 +2,7 @@
 Contributors: gubbigubbi 	
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
-Tested up to: 4.9.8
+Tested up to: 5.0
 Stable tag: 0.7
 Requires PHP: 5.4
 License: GPLv2 or later
