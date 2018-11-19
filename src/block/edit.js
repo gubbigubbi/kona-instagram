@@ -1,9 +1,8 @@
 const { Component, Fragment } = wp.element;
 
-const { InspectorControls, ColorPalette } = wp.editor;
+const { InspectorControls, PanelColorSettings } = wp.editor;
 const {
 	PanelBody,
-	PanelColor,
 	RangeControl,
 	TextControl,
 	ToggleControl,
@@ -268,15 +267,17 @@ export default class InstagramEdit extends Component {
 							onChange={ useThumbnail => setAttributes( { useThumbnail } ) }
 						/>
 
-						<PanelColor
+						<PanelColorSettings
 							title={ __( 'Image Background' ) }
-							colorValue={ backgroundColor }
-						>
-							<ColorPalette
-								value={ backgroundColor }
-								onChange={ backgroundColor => setAttributes( { backgroundColor } ) }
-							/>
-						</PanelColor>
+							colorSettings={ [
+								{
+									value: backgroundColor,
+									onChange: colorValue =>
+										setAttributes( { backgroundColor: colorValue } ),
+									label: __( 'Background Color' ),
+								},
+							] }
+						/>
 					</PanelBody>
 				</InspectorControls>
 				{ profileContainer }
