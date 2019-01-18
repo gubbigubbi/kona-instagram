@@ -7,10 +7,6 @@ export const attributes = {
 		type: 'string',
 		default: 'grid',
 	},
-	useThumbnail: {
-		type: 'boolean',
-		default: false,
-	},
 	numberCols: {
 		type: 'number',
 		default: 4,
@@ -18,6 +14,10 @@ export const attributes = {
 	numberImages: {
 		type: 'number',
 		default: 4,
+	},
+	hasEqualImages: {
+		type: 'boolean',
+		default: false,
 	},
 	thumbs: {
 		type: 'array',

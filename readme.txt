@@ -3,8 +3,8 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 5.0
-Stable tag: 0.9
-Requires PHP: 5.4
+Stable tag: 1.0
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,11 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.0 =
+* Fixed error caused by inactive gutenberg feature plugin *
+* Added feature: equal size images 🚀 - shoutout [@allerj](https://twitter.com/allerj/) *
+* Bumped PHP min version to 5.6, just cause *
 
 = 0.9 =
 * Updated for WP 5.0 support

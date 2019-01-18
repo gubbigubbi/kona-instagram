@@ -109,9 +109,9 @@ export default class InstagramEdit extends Component {
 		const {
 			attributes: {
 				token,
-				useThumbnail,
 				numberCols,
 				numberImages,
+				hasEqualImages,
 				thumbs,
 				gridGap,
 				showProfile,
@@ -148,17 +148,16 @@ export default class InstagramEdit extends Component {
 							thumbs.map( photo => {
 								return (
 									<div
-										className="kona-image-wrapper"
+										className={
+											'kona-image-wrapper ' +
+											( hasEqualImages ? 'has-equal-images' : '' )
+										}
 										style={ { backgroundColor } }
 										key={ photo.id }
 									>
 										<img
 											className="kona-image"
-											src={
-												useThumbnail ?
-													photo.images.thumbnail.url :
-													photo.images.standard_resolution.url
-											}
+											src={ photo.images.standard_resolution.url }
 											alt={ photo.caption ? photo.caption.text : '' }
 											style={ {
 												padding: `${ gridGap }px`,
@@ -261,10 +260,10 @@ export default class InstagramEdit extends Component {
 						/>
 
 						<ToggleControl
-							label={ __( 'Use Thumbnails?' ) }
-							checked={ useThumbnail }
+							label={ __( 'Show equal sized images?' ) }
+							checked={ hasEqualImages }
 							help={ __( 'Use square thumbnails for each image?' ) }
-							onChange={ useThumbnail => setAttributes( { useThumbnail } ) }
+							onChange={ hasEqualImages => setAttributes( { hasEqualImages } ) }
 						/>
 
 						<PanelColorSettings

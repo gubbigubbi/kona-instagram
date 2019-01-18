@@ -1,38 +1,49 @@
 <?php
-register_block_type('cgb/kona-instagram-for-gutenberg', array(
-	'render_callback' => 'kona_render_callback',
-		'attributes' => array(
-				'numberCols' => array(
-					'type' 		=> 'number',
-					'default'	=> '4' // nb: a default is needed!
-				),
-				'token' => array(
-						'type' 		=> 'string',
-						'default' => ''
-				),
-				'useThumbnail' => array(
-					'type' 		=> 'boolean',
-					'default' => false
-				),
-				'numberImages' => array(
-					'type' 		=> 'number',
-					'default' => 4
-				),
-				'gridGap' => array(
-					'type' 		=> 'number',
-					'default'	=> 0
-				),
-				'showProfile'	=> array(
-					'type'		=> 'boolean',
-					'default'	=> false
-				),
-				'backgroundColor'	=> array(
-					'type'		=> 'string',
-					'default'	=> 'transparent',
-				),
+function kona_register_block() {
+
+	// Only load if Gutenberg is available.
+	if ( ! function_exists( 'register_block_type' ) ) {
+		return;
+	}
+
+	register_block_type('cgb/kona-instagram-for-gutenberg', array(
+		'render_callback' => 'kona_render_callback',
+			'attributes' => array(
+					'numberCols' => array(
+						'type' 		=> 'number',
+						'default'	=> '4' // nb: a default is needed!
+					),
+					'token' => array(
+							'type' 		=> 'string',
+							'default' => ''
+					),
+					'hasEqualImages' => array(
+						'type' 		=> 'boolean',
+						'default' => false
+					),
+					'numberImages' => array(
+						'type' 		=> 'number',
+						'default' => 4
+					),
+					'gridGap' => array(
+						'type' 		=> 'number',
+						'default'	=> 0
+					),
+					'showProfile'	=> array(
+						'type'		=> 'boolean',
+						'default'	=> false
+					),
+					'backgroundColor'	=> array(
+						'type'		=> 'string',
+						'default'	=> 'transparent',
+					),
+			)
 		)
-	)
-);
+	);
+
+}
+
+add_action('init', 'kona_register_block');
 
 /**
  * Generic data fetching wrapper
@@ -67,12 +78,12 @@ function kona_get_from_cache( $suffix = '' ) {
  */
 function kona_render_callback( array $attributes ){
 	
-	$token				= $attributes[ 'token' ];
-	$useThumbnail = $attributes[ 'useThumbnail' ] ? 'use-thumbnail' : '';
-	$numberImages	= $attributes[ 'numberImages' ];
-	$numberCols 	= $attributes[ 'numberCols' ];
-	$gridGap 			= $attributes[ 'gridGap' ];
-	$showProfile	= $attributes[ 'showProfile' ];
+	$token				  = $attributes[ 'token' ]  ;
+	$hasEqualImages = $attributes[ 'hasEqualImages' ] ? 'has-equal-images' : '';
+	$numberImages	  = $attributes[ 'numberImages' ];
+	$numberCols 		= $attributes[ 'numberCols' ];
+	$gridGap 				= $attributes[ 'gridGap' ];
+	$showProfile		= $attributes[ 'showProfile' ];
 
 	// get the user ID from the token
 	$user 				= substr($token, 0, stripos($token, '.'));
@@ -125,7 +136,7 @@ function kona_render_callback( array $attributes ){
 		$image = esc_attr($thumb->images->standard_resolution->url);
 
 		$imageContainer .= '
-		<a class="kona-image-wrapper" href="'.esc_attr($thumb->link).'" 
+		<a class="kona-image-wrapper '.$hasEqualImages.'" href="'.esc_attr($thumb->link).'" 
 		target="_blank" rel="noopener noreferrer"
 		style="background-color: '.esc_attr($attributes['backgroundColor']).'">
 			<img
