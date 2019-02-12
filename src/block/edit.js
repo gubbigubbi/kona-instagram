@@ -37,25 +37,27 @@ export default class InstagramEdit extends Component {
 		)
 			.then( res => res.json() )
 			.then( json => {
-				this.setState( {
-					apiResponseCode: json.meta.code,
-					loading: false,
-				} );
-
 				console.log( json );
 
-				if ( json.meta.code === 200 ) {
-					this.props.setAttributes( {
-						thumbs: json.data,
-					} );
-				} else {
-					this.props.setAttributes( {
-						thumbs: [],
+				if ( json.meta ) {
+					this.setState( {
+						apiResponseCode: json.meta.code,
+						loading: false,
 					} );
 
-					this.setState( {
-						apiErrorMessage: json.meta.error_message,
-					} );
+					if ( json.meta.code === 200 ) {
+						this.props.setAttributes( {
+							thumbs: json.data,
+						} );
+					} else {
+						this.props.setAttributes( {
+							thumbs: [],
+						} );
+
+						this.setState( {
+							apiErrorMessage: json.meta.error_message,
+						} );
+					}
 				}
 			} );
 	}
@@ -72,7 +74,7 @@ export default class InstagramEdit extends Component {
 		)
 			.then( res => res.json() )
 			.then( json => {
-				if ( json.meta.code === 200 ) {
+				if ( json.meta && json.meta.code === 200 ) {
 					this.props.setAttributes( {
 						profile: json.data,
 					} );

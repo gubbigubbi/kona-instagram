@@ -104,6 +104,7 @@ function kona_render_callback( array $attributes ){
 	}
 	$thumbs 	= $result->data;
 	$profile 	= ''; // our empty profile container
+	$profileContainer = ''; // initialize as an empty string to prevent server errors
 
 	if($showProfile) {
 		$profile 	= $result->profile->data;

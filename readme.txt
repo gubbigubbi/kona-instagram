@@ -3,7 +3,7 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 5.0
-Stable tag: 1.0
+Stable tag: 1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,10 @@ Easily and instantly preview your Instagram feed live within the new editor (Gut
 
 ###Wan't to see a feature?
 ###### Feel free to tweet and say 👋 at me [@RhysClay](https://twitter.com/rhysclay/)
+
+###Our Awesome Collaborators 
+Some people who have helped along the way
+* [@allerj](https://twitter.com/allerj/)
 
 == Installation ==
 
@@ -51,10 +55,13 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 
 == Changelog ==
 
+= 1.1 =
+* Fixed bug with profileContainer not being defined in server.php under some conditions.
+
 = 1.0 =
-* Fixed error caused by inactive gutenberg feature plugin *
-* Added feature: equal size images 🚀 - shoutout [@allerj](https://twitter.com/allerj/) *
-* Bumped PHP min version to 5.6, just cause *
+* Fixed error caused by inactive gutenberg feature plugin
+* Added feature: equal size images 🚀 - shoutout [@allerj](https://twitter.com/allerj/)
+* Bumped PHP min version to 5.6, just cause
 
 = 0.9 =
 * Updated for WP 5.0 support
