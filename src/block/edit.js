@@ -173,7 +173,7 @@ export default class InstagramEdit extends Component {
 				);
 			}
 		} else if ( apiResponseCode !== 200 ) {
-			container = <div>Ooops something went wrong: { apiErrorMessage }</div>;
+			container = <div>🤦🏻‍♀️ Ooops something went wrong: { apiErrorMessage } 🤦🏻‍♂️</div>;
 		} else {
 			container = (
 				<div className={ className }>

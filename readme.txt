@@ -21,6 +21,8 @@ Easily and instantly preview your Instagram feed live within the new editor (Gut
 ###Our Awesome Collaborators 
 Some people who have helped along the way
 * [@allerj](https://twitter.com/allerj/)
+* [@dingo_d](https://twitter.com/made_by_denis)
+* [@dawizardguy]
 
 == Installation ==
 
@@ -54,6 +56,10 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.1.1 =
+* Removed unused variable $useThumbnails - shoutout [@dingo_d](https://twitter.com/made_by_denis)
+* Added className to server rendered wrapper - shoutout [@dawizardguy]
 
 = 1.1 =
 * Fixed bug with profileContainer not being defined in server.php under some conditions.
@@ -96,4 +102,4 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 * First release.
 
 == Coming Soon ==
-* Ability to make all images the same size
+* Captions???

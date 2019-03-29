@@ -77,7 +77,7 @@ function kona_get_from_cache( $suffix = '' ) {
  * Server side rendering functions
  */
 function kona_render_callback( array $attributes ){
-	
+
 	$token				  = $attributes[ 'token' ]  ;
 	$hasEqualImages = $attributes[ 'hasEqualImages' ] ? 'has-equal-images' : '';
 	$numberImages	  = $attributes[ 'numberImages' ];
@@ -124,8 +124,8 @@ function kona_render_callback( array $attributes ){
 		</a>';
 	}
 
-	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg">
-	<div class="display-grid kona-grid '.$useThumbnail.'" 
+	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg '.$attributes['className'].'">
+	<div class="display-grid kona-grid" 
 	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
 	margin-left: -'.esc_attr($gridGap).'px; 
 	margin-right: -'.esc_attr($gridGap).'px;
