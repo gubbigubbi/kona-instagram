@@ -50,9 +50,9 @@ add_action('init', 'kona_register_block');
  * Uses the WP-API for fetching
  */
 function kona_fetchData($url) {
-	$request = wp_remote_get( $url ); 
+	$request = wp_remote_get( $url );
 
-	if(is_wp_error( $request )) { 
+	if(is_wp_error( $request )) {
 		return false;
 	}
 
@@ -77,13 +77,24 @@ function kona_get_from_cache( $suffix = '' ) {
  * Server side rendering functions
  */
 function kona_render_callback( array $attributes ){
-
-	$token				  = $attributes[ 'token' ]  ;
+	$attributes = wp_parse_args(
+		$attributes,
+		[
+			'token'           => '',
+			'hasEqualImages'  => false,
+			'numberImages'    => 4,
+			'gridGap'         => 0,
+			'showProfile'     => false,
+			'backgroundColor' => 'transparent',
+			'className'       => '',
+		]
+	);
+	$token          = $attributes[ 'token' ]  ;
 	$hasEqualImages = $attributes[ 'hasEqualImages' ] ? 'has-equal-images' : '';
-	$numberImages	  = $attributes[ 'numberImages' ];
-	$numberCols 		= $attributes[ 'numberCols' ];
-	$gridGap 				= $attributes[ 'gridGap' ];
-	$showProfile		= $attributes[ 'showProfile' ];
+	$numberImages   = $attributes[ 'numberImages' ];
+	$numberCols     = $attributes[ 'numberCols' ];
+	$gridGap        = $attributes[ 'gridGap' ];
+	$showProfile    = $attributes[ 'showProfile' ];
 
 	// get the user ID from the token
 	$user 				= substr($token, 0, stripos($token, '.'));
@@ -125,9 +136,9 @@ function kona_render_callback( array $attributes ){
 	}
 
 	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg '.$attributes['className'].'">
-	<div class="display-grid kona-grid" 
-	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr); 
-	margin-left: -'.esc_attr($gridGap).'px; 
+	<div class="display-grid kona-grid"
+	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr);
+	margin-left: -'.esc_attr($gridGap).'px;
 	margin-right: -'.esc_attr($gridGap).'px;
 	grid-gap: '.esc_attr( $gridGap ).'px";
 	>';
@@ -137,7 +148,7 @@ function kona_render_callback( array $attributes ){
 		$image = esc_attr($thumb->images->standard_resolution->url);
 
 		$imageContainer .= '
-		<a class="kona-image-wrapper '.$hasEqualImages.'" href="'.esc_attr($thumb->link).'" 
+		<a class="kona-image-wrapper '.$hasEqualImages.'" href="'.esc_attr($thumb->link).'"
 		target="_blank" rel="noopener noreferrer"
 		style="background-color: '.esc_attr($attributes['backgroundColor']).'">
 			<img
