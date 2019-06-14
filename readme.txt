@@ -2,8 +2,8 @@
 Contributors: gubbigubbi 	
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
-Tested up to: 5.1.1
-Stable tag: 1.1.2
+Tested up to: 5.2.1
+Stable tag: 1.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -57,6 +57,10 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.3 =
+* Fixed foreach loop error with no data
+* Improved block icon
 
 = 1.2.1 =
 * Merged pull request which fixes 'undefinedIndex className' - shoutout [@Forsvunnet](https://twitter.com/forsvunnet)

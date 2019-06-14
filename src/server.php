@@ -143,22 +143,24 @@ function kona_render_callback( array $attributes ){
 	grid-gap: '.esc_attr( $gridGap ).'px";
 	>';
 
-	foreach( $thumbs as $thumb ) {
+	if( is_array($thumbs) ) {
+		foreach( $thumbs as $thumb ) {
 
-		$image = esc_attr($thumb->images->standard_resolution->url);
+			$image = esc_attr($thumb->images->standard_resolution->url);
 
-		$imageContainer .= '
-		<a class="kona-image-wrapper '.$hasEqualImages.'" href="'.esc_attr($thumb->link).'"
-		target="_blank" rel="noopener noreferrer"
-		style="background-color: '.esc_attr($attributes['backgroundColor']).'">
-			<img
-			class="kona-image"
-			key="'.esc_attr($thumb->id).'"
-			src="'.$image.'"
-			alt="'.esc_attr($thumb->caption->text).'"
-			/>
-			<div class="kona-image-overlay"></div>
-		</a>';
+			$imageContainer .= '
+			<a class="kona-image-wrapper '.$hasEqualImages.'" href="'.esc_attr($thumb->link).'"
+			target="_blank" rel="noopener noreferrer"
+			style="background-color: '.esc_attr($attributes['backgroundColor']).'">
+				<img
+				class="kona-image"
+				key="'.esc_attr($thumb->id).'"
+				src="'.$image.'"
+				alt="'.esc_attr($thumb->caption->text).'"
+				/>
+				<div class="kona-image-overlay"></div>
+			</a>';
+		}
 	}
 
 	return "{$profileContainer}{$imageContainer}</div></div>";
