@@ -64,9 +64,8 @@ function kona_fetchData($url) {
  * The number of images is used as a suffix in the case that the user
  * adds/removes images and expects a refreshed feed.
  */
-function kona_add_to_cache( $result, $suffix = '' ) {
-	$expire = 6 * 60 * 60; // 6 hours in seconds
-	set_transient( 'kona-api_'.$suffix, $result, '', $expire );
+function kona_add_to_cache( $result, $suffix = '', $expire = ( 60 * 60 * 6 ) ) {
+	set_transient( 'kona-api_'.$suffix, $result, $expire );
 }
 
 function kona_get_from_cache( $suffix = '' ) {
@@ -102,7 +101,7 @@ function kona_render_callback( array $attributes ){
 	// create a unique id so there is no double ups
 	$suffix 			= $user.'_'.$numberImages;
 
-	if ( !kona_get_from_cache() ) {
+	if ( !kona_get_from_cache( $suffix ) ) {
 		// no valid cache found
 		// hit the network
 		$result = json_decode(kona_fetchData("https://api.instagram.com/v1/users/self/media/recent/?access_token={$token}&count={$numberImages}"));
@@ -113,6 +112,7 @@ function kona_render_callback( array $attributes ){
 	} else {
 		$result = kona_get_from_cache( $suffix ); // hit the cache
 	}
+
 	$thumbs 	= $result->data;
 	$profile 	= ''; // our empty profile container
 	$profileContainer = ''; // initialize as an empty string to prevent server errors
@@ -156,7 +156,7 @@ function kona_render_callback( array $attributes ){
 				class="kona-image"
 				key="'.esc_attr($thumb->id).'"
 				src="'.$image.'"
-				alt="'.esc_attr($thumb->caption->text).'"
+				alt="'. ( empty( $thumb->caption ) ? '' : esc_attr( $thumb->caption->text ) ) . '"
 				/>
 				<div class="kona-image-overlay"></div>
 			</a>';
