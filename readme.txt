@@ -3,7 +3,7 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 5.3
-Stable tag: 1.4
+Stable tag: 1.4.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,7 @@ Easily and instantly preview your Instagram feed live within the new editor (Gut
 
 ###Wan't to see a feature?
 ###### Feel free to tweet and say 👋 at me [@RhysClay](https://twitter.com/rhysclay/)
+###### Or submit (even better) submit a PR!
 
 ###Our Awesome Collaborators 
 Some people who have helped along the way
@@ -25,6 +26,7 @@ Some people who have helped along the way
 * [@allerj](https://twitter.com/allerj/)
 * [@dingo_d](https://twitter.com/made_by_denis)
 * [@dawizardguy]
+* [@UXBox-Designj](https://github.com/UXBox-Design)
 
 == Installation ==
 
@@ -58,6 +60,9 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.4.1 =
+* Added support for alignment - shoutout [@UXBox-Designj](https://github.com/UXBox-Design)
 
 = 1.4 =
 * Tightened caching technique, now works correctly!.
