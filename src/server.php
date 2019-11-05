@@ -86,6 +86,7 @@ function kona_render_callback( array $attributes ){
 			'showProfile'     => false,
 			'backgroundColor' => 'transparent',
 			'className'       => '',
+			'align'						=> '',
 		]
 	);
 	$token          = $attributes[ 'token' ]  ;
@@ -94,6 +95,8 @@ function kona_render_callback( array $attributes ){
 	$numberCols     = $attributes[ 'numberCols' ];
 	$gridGap        = $attributes[ 'gridGap' ];
 	$showProfile    = $attributes[ 'showProfile' ];
+	$className			= $attributes[ 'className' ];
+	$align					= $attributes[ 'align' ];
 
 	// get the user ID from the token
 	$user 				= substr($token, 0, stripos($token, '.'));
@@ -120,7 +123,7 @@ function kona_render_callback( array $attributes ){
 	if($showProfile) {
 		$profile 	= $result->profile->data;
 
-		$profileContainer = '<a href="https://instagram.com/'.$profile->username.'" target="_blank" class="kona-profile-container display-grid">
+		$profileContainer = '<a href="https://instagram.com/'.$profile->username.'" target="_blank" class="kona-profile-container display-grid align'.$align.'">
 			<div class="kona-profile-picture-container">
 				<img
 					class="kona-profile-picture"
@@ -135,7 +138,7 @@ function kona_render_callback( array $attributes ){
 		</a>';
 	}
 
-	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg '.$attributes['className'].'">
+	$imageContainer = '<div class="wp-block-cgb-kona-instagram-for-gutenberg '.$attributes['className'].' align'.$align.'">
 	<div class="display-grid kona-grid"
 	style="grid-template-columns: repeat('.esc_attr($numberCols).', 1fr);
 	margin-left: -'.esc_attr($gridGap).'px;

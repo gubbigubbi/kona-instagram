@@ -30,7 +30,9 @@ registerBlockType( 'cgb/kona-instagram-for-gutenberg', {
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [ __( 'kona' ), __( 'instagram' ) ],
 	attributes,
-
+	supports: {
+		align: [ 'wide', 'full' ],
+	},
 	/**
 	 * Edit
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
