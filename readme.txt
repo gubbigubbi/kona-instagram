@@ -3,7 +3,7 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 5.3
-Stable tag: 1.4.1
+Stable tag: 1.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -60,6 +60,9 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.5 =
+* New feauture: Captions!!!
 
 = 1.4.1 =
 * Added support for alignment - shoutout [@UXBox-Designj](https://github.com/UXBox-Design)

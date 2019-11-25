@@ -37,6 +37,10 @@ function kona_register_block() {
 						'type'		=> 'string',
 						'default'	=> 'transparent',
 					),
+					'showCaptions'	=> array(
+						'type'		=> 'boolean',
+						'default'	=> false
+					),
 			)
 		)
 	);
@@ -87,6 +91,7 @@ function kona_render_callback( array $attributes ){
 			'backgroundColor' => 'transparent',
 			'className'       => '',
 			'align'						=> '',
+			'showCaptions'     => false,
 		]
 	);
 	$token          = $attributes[ 'token' ]  ;
@@ -97,6 +102,7 @@ function kona_render_callback( array $attributes ){
 	$showProfile    = $attributes[ 'showProfile' ];
 	$className			= $attributes[ 'className' ];
 	$align					= $attributes[ 'align' ];
+	$showCaptions		= $attributes[ 'showCaptions' ];
 
 	// get the user ID from the token
 	$user 				= substr($token, 0, stripos($token, '.'));
@@ -149,6 +155,14 @@ function kona_render_callback( array $attributes ){
 	if( is_array($thumbs) ) {
 		foreach( $thumbs as $thumb ) {
 
+			$caption = $showCaptions && $thumb->caption ? '<div class="kona-image-caption">
+			<span class="kona-image-caption_text">
+				'.$thumb->caption->text.'
+			</span>
+			<span class="kona-image-caption_likes">
+			</span>
+		</div>' : '';
+
 			$image = esc_attr($thumb->images->standard_resolution->url);
 
 			$imageContainer .= '
@@ -161,7 +175,11 @@ function kona_render_callback( array $attributes ){
 				src="'.$image.'"
 				alt="'. ( empty( $thumb->caption ) ? '' : esc_attr( $thumb->caption->text ) ) . '"
 				/>
-				<div class="kona-image-overlay"></div>
+				<div class="kona-image-overlay">
+				
+				'.$caption.'
+
+				</div>
 			</a>';
 		}
 	}

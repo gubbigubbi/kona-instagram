@@ -83,7 +83,7 @@ Image Styling
 	height: 100%;
 	opacity: 0;
 	&:before {
-		content: ' ';
+		content: " ";
 		opacity: 1;
 		background: url(../assets/instagram-icon-white.svg) no-repeat center center;
 		background-size: 30px 30px;
@@ -116,5 +116,25 @@ Profile pictures
 	p {
 		margin-top: 0;
 		margin-bottom: 0;
+	}
+}
+
+/**
+Captions
+**/
+.kona-image-caption {
+	position: absolute;
+	bottom: 0;
+	padding: 10px;
+	color: #fff;
+	font-size: 13px;
+
+	.kona-image-caption_text {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+		/*! autoprefixer: off */
+		-webkit-box-orient: vertical;
+		/* autoprefixer: on */
 	}
 }
