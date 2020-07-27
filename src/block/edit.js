@@ -33,19 +33,20 @@ export default class InstagramEdit extends Component {
 		}
 
 		return fetch(
-			`https://api.instagram.com/v1/users/self/media/recent/?access_token=${_TOKEN}&count=${_COUNT}`
+			`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token=${_TOKEN}`
+			//`https://api.instagram.com/v1/users/self/media/recent/?access_token=${_TOKEN}&count=${_COUNT}`
 		)
 			.then(res => res.json())
 			.then(json => {
 				console.log(json);
 
-				if (json.meta) {
+				if (json.data) {
 					this.setState({
-						apiResponseCode: json.meta.code,
+						apiResponseCode: 200, // manually setting this for now
 						loading: false
 					});
 
-					if (json.meta.code === 200) {
+					if (json.data.length > 0) {
 						this.props.setAttributes({
 							thumbs: json.data
 						});
@@ -55,7 +56,8 @@ export default class InstagramEdit extends Component {
 						});
 
 						this.setState({
-							apiErrorMessage: json.meta.error_message
+							apiResponseCode: 500 // manual
+							// apiErrorMessage: json.meta.error_message
 						});
 					}
 				}
@@ -70,7 +72,8 @@ export default class InstagramEdit extends Component {
 		}
 
 		return fetch(
-			`https://api.instagram.com/v1/users/self/?access_token=${_TOKEN}`
+			`https://graph.instagram.com/me?fields=id,username&access_token=${_TOKEN}`
+			//`https://api.instagram.com/v1/users/self/?access_token=${_TOKEN}`
 		)
 			.then(res => res.json())
 			.then(json => {
@@ -149,7 +152,7 @@ export default class InstagramEdit extends Component {
 						}}
 					>
 						{thumbs &&
-							thumbs.map(photo => {
+							thumbs.slice(0, numberImages).map(photo => {
 								return (
 									<div
 										className={
@@ -161,14 +164,14 @@ export default class InstagramEdit extends Component {
 									>
 										<img
 											className="kona-image"
-											src={photo.images.standard_resolution.url}
-											alt={photo.caption ? photo.caption.text : ""}
+											src={photo.media_url}
+											alt={photo.caption ? photo.caption : ""}
 										/>
 										<div className="kona-image-overlay">
 											{showCaptions && (
 												<div className="kona-image-caption">
 													<span className="kona-image-caption_text">
-														{photo.caption.text}
+														{photo.caption}
 													</span>
 													<span className="kona-image-caption_likes"></span>
 												</div>
@@ -187,41 +190,43 @@ export default class InstagramEdit extends Component {
 		} else {
 			container = (
 				<div className={className}>
-					To get started please add an Instagram Access Token.{" "}
-					<a
+					<p>To get started please add an Instagram Access Token.{" "}</p>
+					<p>To do this we suggest installing the Feed Them Social plugin by Slick Remix, <a
 						target="_blank"
 						rel="noopener noreferrer"
-						href="http://instagram.pixelunion.net/"
-					>
-						To do this login to instagram and click here.
-					</a>
-					Once you have a token, please paste it into the 'Instagram Access
-					Token' setting.
+						href="https://www.slickremix.com/docs/how-to-create-instagram-access-token/"
+					>then following these steps.</a></p>
+					<p>Once you have a token, please paste it into the 'Instagram Access
+					Token' setting.</p>
+					<p>You can then deactivate the FTS plugin if needed.</p>
 				</div>
 			);
 		}
 
 		let profileContainer;
 
-		if (showProfile) {
-			profileContainer = (
-				<div className="display-grid kona-profile-container">
-					<div className="kona-profile-picture-container">
-						<img
-							className="kona-profile-picture"
-							src={profile.profile_picture}
-							alt={profile.full_name}
-						/>
-					</div>
-					<div className="kona-bio-container">
-						<h3>{profile.username}</h3>
-						<p>{profile.bio}</p>
-					</div>
-				</div>
-			);
-		} else {
-			profileContainer = <Fragment />;
-		}
+		// if (showProfile) {
+		// 	profileContainer = (
+		// 		<div className="display-grid kona-profile-container">
+		// 			<div className="kona-profile-picture-container">
+		// 				<img
+		// 					className="kona-profile-picture"
+		// 					src={profile.profile_picture}
+		// 					alt={profile.full_name}
+		// 				/>
+		// 			</div>
+		// 			<div className="kona-bio-container">
+		// 				<h3>{profile.username}</h3>
+		// 				<p>{profile.bio}</p>
+		// 			</div>
+		// 		</div>
+		// 	);
+		// } else {
+		// 	profileContainer = <Fragment />;
+		// }
+
+		// removing profile for now, unable to access with new instagram api
+		profileContainer = <Fragment />;
 
 		return (
 			<div className={className}>
@@ -262,14 +267,14 @@ export default class InstagramEdit extends Component {
 							label={__("Image spacing (px)")}
 						/>
 
-						<ToggleControl
+						{/* <ToggleControl
 							label={__("Show profile?")}
 							checked={showProfile}
 							help={__(
 								"Show your profile details such as your biography and profile photo."
 							)}
 							onChange={this.onChangeShowProfile}
-						/>
+						/> */}
 
 						<ToggleControl
 							label={__("Show captions?")}

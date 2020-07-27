@@ -8,10 +8,10 @@
 		"eject": "cgb-scripts eject"
 	},
 	"dependencies": {
-		"cgb-scripts": "1.21.0"
+		"cgb-scripts": "1.23.1"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.2",
-		"gulp-zip": "^5.0.0"
+		"gulp-zip": "^5.0.2"
 	}
 }

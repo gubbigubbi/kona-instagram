@@ -2,8 +2,8 @@
 Contributors: gubbigubbi 	
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
-Tested up to: 5.3
-Stable tag: 1.5
+Tested up to: 5.4.2
+Stable tag: 1.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,9 +33,9 @@ Some people who have helped along the way
 Firstly make sure that you have the Gutenberg plugin installed.
 
 1. Install the Kona plugin either via the WordPress plugin directory, or by uploading the files to your web server (in the /wp-content/plugins/ directory).
-1. Activate the Kona plugin through the 'Plugins' screen in WordPress
-1. Get an Instagram Access Token: To do this login to instagram and [click here] (http://instagram.pixelunion.net/). Once you have a token, please paste it into the 'Instagram Access Token' setting.
-1. Add the Kona block to your editor, paste the Access Token into the block settings.
+1. Activate the Kona plugin through the 'Plugins' screen in WordPress.
+1. Add the Kona block to your editor.
+1. Get an Instagram Access Token: To do this we suggest installing the Feed Them Social plugin by Slick Remix, then login to instagram and follow these steps [click here] (https://www.slickremix.com/docs/how-to-create-instagram-access-token/). Once you have a token, please paste it into the 'Instagram Access Token' setting. You can then deactivate the FTS plugin if needed.
 1. Your Instagram feed will now show in the editor, adjust the settings to see how it will look before publishing.
 
 == Frequently Asked Questions ==
@@ -47,7 +47,6 @@ Please make sure to add your Instagram access token the block settings. Once add
 = How about X feature? =
 
 We will continue adding features as requested. If you have a killer idea for a feature submit a support request and we will see what we can do.
-Note: we plan to release a premium version of the plugin which will likely receive new features first - this helps offset the cost of our development time.
 
 = The feed looks funny in IE9 (Or other old browser)
 
@@ -56,10 +55,13 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 == Screenshots ==
 
 1. Adding the Kona block to the editor.
-1. Obtaining an Access Token from PixelUnion.
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.6 =
+* Updated to work with latest instagram API. Note: the user biography feature no longer works :(
+* We need your help! This is a free plugin, and with the latest instagram API update, we cannot figure out how to retrieve an access token, if you can help this community project please feel free to contact us!
 
 = 1.5 =
 * New feauture: Captions!!!
