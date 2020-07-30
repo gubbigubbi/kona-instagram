@@ -3,6 +3,7 @@ const { Component, Fragment } = wp.element;
 const { InspectorControls, PanelColorSettings } = wp.editor;
 const {
 	PanelBody,
+	PanelRow,
 	RangeControl,
 	TextControl,
 	ToggleControl,
@@ -110,6 +111,41 @@ export default class InstagramEdit extends Component {
 		this.fetchBio();
 	};
 
+	renderImage = photo => {
+
+
+		const { hasEqualImages, backgroundColor, showCaptions } = this.props.attributes;
+
+		if (photo.media_type === 'IMAGE' || 'CAROUSEL_ALBUM') { // for now dont allow carousels or videos
+			return (
+				<div
+					className={
+						"kona-image-wrapper " +
+						(hasEqualImages ? "has-equal-images" : "")
+					}
+					style={{ backgroundColor }}
+					key={photo.id}
+				>
+					<img
+						className="kona-image"
+						src={photo.media_url}
+						alt={photo.caption ? photo.caption : ""}
+					/>
+					<div className="kona-image-overlay">
+						{showCaptions && (
+							<div className="kona-image-caption">
+								<span className="kona-image-caption_text">
+									{photo.caption}
+								</span>
+								<span className="kona-image-caption_likes"></span>
+							</div>
+						)}
+					</div>
+				</div>
+			);
+		}
+	}
+
 	render() {
 		const {
 			attributes: {
@@ -153,32 +189,8 @@ export default class InstagramEdit extends Component {
 					>
 						{thumbs &&
 							thumbs.slice(0, numberImages).map(photo => {
-								return (
-									<div
-										className={
-											"kona-image-wrapper " +
-											(hasEqualImages ? "has-equal-images" : "")
-										}
-										style={{ backgroundColor }}
-										key={photo.id}
-									>
-										<img
-											className="kona-image"
-											src={photo.media_url}
-											alt={photo.caption ? photo.caption : ""}
-										/>
-										<div className="kona-image-overlay">
-											{showCaptions && (
-												<div className="kona-image-caption">
-													<span className="kona-image-caption_text">
-														{photo.caption}
-													</span>
-													<span className="kona-image-caption_likes"></span>
-												</div>
-											)}
-										</div>
-									</div>
-								);
+
+								return this.renderImage(photo);
 							})}
 					</div>
 				);
@@ -248,24 +260,32 @@ export default class InstagramEdit extends Component {
 							label={__("Columns")}
 						/>
 
-						<RangeControl
-							value={numberImages}
-							onChange={this.onChangeImages}
-							min={1}
-							max={20}
-							step={1}
-							allowReset="true"
-							label={__("Images")}
-						/>
+						<PanelRow>
+							Note: Videos will be skipped in the total image count (these will be added in future plugin versions)
+						</PanelRow>
 
-						<RangeControl
-							value={gridGap}
-							onChange={gridGap => setAttributes({ gridGap })}
-							min={0}
-							max={20}
-							step={1}
-							label={__("Image spacing (px)")}
-						/>
+						<PanelRow>
+							<RangeControl
+								value={numberImages}
+								onChange={this.onChangeImages}
+								min={1}
+								max={20}
+								step={1}
+								allowReset="true"
+								label={__("Images")}
+							/>
+						</PanelRow>
+
+						<PanelRow>
+							<RangeControl
+								value={gridGap}
+								onChange={gridGap => setAttributes({ gridGap })}
+								min={0}
+								max={20}
+								step={1}
+								label={__("Image spacing (px)")}
+							/>
+						</PanelRow>
 
 						{/* <ToggleControl
 							label={__("Show profile?")}

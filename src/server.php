@@ -158,9 +158,10 @@ function kona_render_callback(array $attributes)
 	>';
 
     if (is_array($thumbs)) {
-        foreach ($thumbs as $thumb) {
+        foreach (array_slice($thumbs, 0, $numberImages) as $thumb) { // limit to number of images
 
-            $caption = $showCaptions && $thumb->caption ? '<div class="kona-image-caption">
+            if ($thumb->media_type === 'IMAGE' || 'CAROUSEL_ALBUM') {
+                $caption = $showCaptions && $thumb->caption ? '<div class="kona-image-caption">
 			<span class="kona-image-caption_text">
 				' . $thumb->caption . '
 			</span>
@@ -168,9 +169,9 @@ function kona_render_callback(array $attributes)
 			</span>
 		</div>' : '';
 
-            $image = esc_attr($thumb->media_url);
+                $image = esc_attr($thumb->media_url);
 
-            $imageContainer .= '
+                $imageContainer .= '
 			<a class="kona-image-wrapper ' . $hasEqualImages . '" href="' . esc_attr($thumb->permalink) . '"
 			target="_blank" rel="noopener noreferrer"
 			style="background-color: ' . esc_attr($attributes['backgroundColor']) . '">
@@ -186,6 +187,7 @@ function kona_render_callback(array $attributes)
 
 				</div>
 			</a>';
+            }
         }
     }
 

@@ -3,7 +3,7 @@ Contributors: gubbigubbi
 Tags: gutenberg, instagram, instagram feed
 Requires at least: 4.9.6
 Tested up to: 5.4.2
-Stable tag: 1.6
+Stable tag: 1.7
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,6 +21,7 @@ Easily and instantly preview your Instagram feed live within the new editor (Gut
 
 ###Our Awesome Collaborators 
 Some people who have helped along the way
+* [@yonatron](https://wordpress.org/support/users/yonatron/)
 * [@ahrengot]
 * [@Forsvunnet](https://twitter.com/forsvunnet)
 * [@allerj](https://twitter.com/allerj/)
@@ -58,6 +59,10 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 1. Adjusting the block settings.
 
 == Changelog ==
+
+= 1.7 =
+* Fixed bug with number of images not working on front end
+* Allowed carousel albums to show in the gallery
 
 = 1.6 =
 * Updated to work with latest instagram API. Note: the user biography feature no longer works :(
@@ -128,4 +133,4 @@ This plugin is laid out using the new CSS Grid specification, we do not have pla
 * First release.
 
 == Coming Soon ==
-* Captions???
+* Video thumbs???
