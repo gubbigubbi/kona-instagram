@@ -158,9 +158,11 @@ function kona_render_callback(array $attributes)
 	>';
 
     if (is_array($thumbs)) {
-        foreach (array_slice($thumbs, 0, $numberImages) as $thumb) { // limit to number of images
+        $added = 0;
+        foreach ($thumbs as $thumb) { // limit to number of images
 
-            if ($thumb->media_type === 'IMAGE' || 'CAROUSEL_ALBUM') {
+            if ($thumb->media_type === 'IMAGE' || $thumb->media_type === 'CAROUSEL_ALBUM') {
+	        $added++;
                 $caption = $showCaptions && $thumb->caption ? '<div class="kona-image-caption">
 			<span class="kona-image-caption_text">
 				' . $thumb->caption . '
@@ -188,6 +190,9 @@ function kona_render_callback(array $attributes)
 				</div>
 			</a>';
             }
+	    if ($added >= $numberImages) {
+		break;
+	    }
         }
     }
 
